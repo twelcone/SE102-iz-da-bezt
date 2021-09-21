@@ -15,14 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="brick.ico">
-      <Filter>Source Files</Filter>
-    </Image>
-    <Image Include="brick.png">
-      <Filter>Source Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
