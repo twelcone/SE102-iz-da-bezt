@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Homework-BouncingBrick", "H
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Skeleton-Example", "Skeleton-Example\Skeleton-Example.vcxproj", "{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sprite-Example", "Sprite-Example\Sprite-Example.vcxproj", "{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x64.Build.0 = Release|x64
 		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x86.ActiveCfg = Release|Win32
 		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x86.Build.0 = Release|Win32
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Debug|x64.ActiveCfg = Debug|x64
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Debug|x64.Build.0 = Debug|x64
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Debug|x86.ActiveCfg = Debug|Win32
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Debug|x86.Build.0 = Debug|Win32
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Release|x64.ActiveCfg = Release|x64
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Release|x64.Build.0 = Release|x64
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Release|x86.ActiveCfg = Release|Win32
+		{AADFB8E6-BDA3-4F69-9F0F-5C30EE6EACBA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
