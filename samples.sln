@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Homework-BouncingBrick", "Homework-BouncingBrick\Homework-BouncingBrick.vcxproj", "{120D1EAF-A008-4CA2-ABD4-0A5A34DCF30A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Skeleton-Example", "Skeleton-Example\Skeleton-Example.vcxproj", "{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{120D1EAF-A008-4CA2-ABD4-0A5A34DCF30A}.Release|x64.Build.0 = Release|x64
 		{120D1EAF-A008-4CA2-ABD4-0A5A34DCF30A}.Release|x86.ActiveCfg = Release|Win32
 		{120D1EAF-A008-4CA2-ABD4-0A5A34DCF30A}.Release|x86.Build.0 = Release|Win32
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Debug|x64.ActiveCfg = Debug|x64
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Debug|x64.Build.0 = Debug|x64
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Debug|x86.ActiveCfg = Debug|Win32
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Debug|x86.Build.0 = Debug|Win32
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x64.ActiveCfg = Release|x64
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x64.Build.0 = Release|x64
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x86.ActiveCfg = Release|Win32
+		{D197D5E5-AC45-4B4D-B939-DAC3A463FD47}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
