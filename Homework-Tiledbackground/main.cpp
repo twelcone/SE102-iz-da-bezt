@@ -44,6 +44,8 @@ CMario *mario;
 
 CBrick *brick;
 
+CGoomba* goomba;
+
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -66,7 +68,8 @@ void LoadResources()
 	CTextures * textures = CTextures::GetInstance();
 
 	textures->Add(ID_TEX_MARIO, TEXTURE_PATH_MARIO);
-	//textures->Add(ID_ENEMY_TEXTURE, TEXTURE_PATH_ENEMIES, D3DCOLOR_XRGB(156, 219, 239));
+	textures->Add(ID_TEX_ENEMY, TEXTURE_PATH_ENEMIES);
+	//, D3DCOLOR_XRGB(156, 219, 239)
 	textures->Add(ID_TEX_MISC, TEXTURE_PATH_MISC);
 
 
@@ -89,6 +92,12 @@ void LoadResources()
 	sprites->Add(20002, 318, 117, 334, 133, texMisc);
 	sprites->Add(20003, 336, 117, 352, 133, texMisc);
 	sprites->Add(20004, 354, 117, 370, 133, texMisc);
+
+	LPTEXTURE texGoomba = textures->Get(ID_TEX_ENEMY);
+	sprites->Add(30001, 59, 11, 78, 37, texGoomba);
+	sprites->Add(30002, 81, 16, 102, 36, texGoomba);
+	sprites->Add(30003, 81, 16, 102, 36, texGoomba);
+	sprites->Add(30004, 59, 11, 78, 37, texGoomba);
 	
 
 	CAnimations * animations = CAnimations::GetInstance();
@@ -113,9 +122,23 @@ void LoadResources()
 	ani->Add(20003);
 	ani->Add(20004);
 	animations->Add(510, ani);
+
+
+	ani = new CAnimation(100);
+	ani->Add(30001, 1000);
+	ani->Add(30002);
+	animations->Add(520, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(30003, 1000);
+	ani->Add(30004);
+	animations->Add(521, ani);
 	
 	
 	mario = new CMario(MARIO_START_X, MARIO_START_Y, MARIO_START_VX);
+
+	goomba = new CGoomba(MARIO_START_X + 20, MARIO_START_Y - 60, MARIO_START_VX);
+
 	brick = new CBrick(100.0f, 100.0f);
 }
 
@@ -126,6 +149,7 @@ void LoadResources()
 void Update(DWORD dt)
 {
 	mario->Update(dt);
+	goomba->Update(dt);
 }
 
 void Render()
@@ -150,6 +174,7 @@ void Render()
 
 		brick->Render();
 		mario->Render();
+		goomba->Render();
 
 		// Uncomment this line to see how to draw a porttion of a texture  
 		//g->Draw(10, 10, texMisc, 300, 117, 316, 133);

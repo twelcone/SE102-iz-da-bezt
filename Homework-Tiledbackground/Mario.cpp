@@ -44,3 +44,38 @@ void CBrick::Render() {
 	ani->Render(x, y);
 
 }
+
+CGoomba::CGoomba(float x, float y, float vx):CGameObject(x, y)
+{
+	this->vx = vx;
+};
+
+void CGoomba::Update(DWORD dt)
+{
+	x += vx * dt;
+
+	int BackBufferWidth = CGame::GetInstance()->GetBackBufferWidth();
+	if (x <= 0 || x >= BackBufferWidth - MARIO_WIDTH) {
+
+		vx = -vx;
+
+		if (x <= 0)
+		{
+			x = 0;
+		}
+		else if (x >= BackBufferWidth - MARIO_WIDTH)
+		{
+			x = (float)(BackBufferWidth - MARIO_WIDTH);
+		}
+	}
+}
+
+void CGoomba::Render()
+{
+	LPANIMATION ani;
+
+	if (vx > 0) ani = CAnimations::GetInstance()->Get(520);
+	else ani = CAnimations::GetInstance()->Get(521);
+
+	ani->Render(x, y);
+}
