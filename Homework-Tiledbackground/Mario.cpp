@@ -45,6 +45,14 @@ void CBrick::Render() {
 
 }
 
+void CCoin::Render() {
+
+	LPANIMATION ani = CAnimations::GetInstance()->Get(700);
+
+	ani->Render(x, y);
+
+}
+
 
 void CMap::Render() {
 

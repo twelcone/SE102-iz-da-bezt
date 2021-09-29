@@ -48,6 +48,8 @@ CMario *mario;
 #define MARIO_START_VX 0.1f
 #define GRASS_X 200.0f
 #define GRASS_Y 164.0f
+#define COIN_X 150.0f
+#define COIN_Y 100.0f
 
 CBrick *brick;
 
@@ -60,6 +62,8 @@ CMap2** arrMapBrick2 = new CMap2 * [numMapBrick];
 CCloud** arrCloud = new CCloud * [12];
 
 CGrass** arrGrass = new CGrass * [11];
+
+CCoin** arrCoin = new CCoin * [3];
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -140,6 +144,11 @@ void LoadResources()
 	sprites->Add(60009, 200, 74, 215, 89, texGrass);
 	sprites->Add(60010, 164, 20, 179, 35, texGrass);
 
+	LPTEXTURE texCoin = textures->Get(ID_TEX_MAP);
+	sprites->Add(70000, 182, 110, 197, 125, texCoin);
+	sprites->Add(70001, 200, 110, 215, 125, texCoin);
+	sprites->Add(70002, 218, 110, 233, 125, texCoin);
+	sprites->Add(70003, 236, 110, 251, 125, texCoin);
 
 	CAnimations * animations = CAnimations::GetInstance();
 	LPANIMATION ani;
@@ -149,6 +158,13 @@ void LoadResources()
 	ani->Add(10002);
 	ani->Add(10003);
 	animations->Add(500, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(70000);
+	ani->Add(70001);
+	ani->Add(70002);
+	ani->Add(70003);
+	animations->Add(700, ani);
 
 	ani = new CAnimation(100);
 	ani->Add(10011);
@@ -207,6 +223,11 @@ void LoadResources()
 	goomba = new CGoomba(MARIO_START_X + 20, MARIO_START_Y - 90, MARIO_START_VX * 0.8);
 
 	brick = new CBrick(100.0f, 100.0f);
+
+	for (int i = 0; i < 3; i++)
+	{
+		arrCoin[i] = new CCoin(COIN_X + 20*i, COIN_Y);
+	}
 
 	for (int i = 0; i < numMapBrick; i++)
 	{
@@ -292,6 +313,11 @@ void Render()
 		for (int i = 0; i < 11; i++)
 		{
 			arrGrass[i]->Render(i);
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			arrCoin[i]->Render();
 		}
 		
 
