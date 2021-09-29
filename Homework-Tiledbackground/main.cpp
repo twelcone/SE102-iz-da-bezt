@@ -55,7 +55,7 @@ int numMapBrick = 1 + SCREEN_WIDTH / MAPBRICK_WIDTH;
 CMap** arrMapBrick = new CMap * [numMapBrick];
 CMap2** arrMapBrick2 = new CMap2 * [numMapBrick];
 
-CCloud** arrCloud = new CCloud * [6];
+CCloud** arrCloud = new CCloud * [12];
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -116,7 +116,12 @@ void LoadResources()
 	sprites->Add(40002, 308, 110, 323, 125, texMap);
 
 	LPTEXTURE texCloud = textures->Get(ID_TEX_MAP);
-	sprites->Add(50000, 668, 255, 683, 269, texCloud);
+	sprites->Add(50000, 668, 255, 683, 270, texCloud);
+	sprites->Add(50001, 686, 255, 701, 270, texCloud);
+	sprites->Add(50002, 704, 255, 719, 270, texCloud);
+	sprites->Add(50003, 668, 272, 683, 287, texCloud);
+	sprites->Add(50004, 686, 272, 701, 287, texCloud);
+	sprites->Add(50005, 704, 272, 719, 287, texCloud);
 
 
 	CAnimations * animations = CAnimations::GetInstance();
@@ -161,9 +166,11 @@ void LoadResources()
 	ani->Add(40002);
 	animations->Add(531, ani);
 
-	ani = new CAnimation(100);
-	ani->Add(50000);
-	animations->Add(550, ani);
+	for (int i = 0; i < 6; i++) {
+		ani = new CAnimation(100);
+		ani->Add(50000 + i);
+		animations->Add(550 + i, ani);
+	}
 	
 	
 	mario = new CMario(MARIO_START_X, MARIO_START_Y, MARIO_START_VX);
@@ -177,10 +184,30 @@ void LoadResources()
 		arrMapBrick[i] = new CMap(MAPBRICK_WIDTH * i , MARIO_START_Y + 36);
 		arrMapBrick2[i] = new CMap2(MAPBRICK_WIDTH * i , MARIO_START_Y + 20);
 	}
+	
+	int arrX[12] = { 20, 36, 52, 20, 36, 52, 200, 216, 232, 200, 216, 232 };
+	int arrY[12] = { 130, 130, 130, 115, 115, 115, 140, 140, 140, 125, 125, 125 };
+	for (int i = 0; i < 12; i++)
+	{
+		arrCloud[i] = new CCloud(MARIO_START_X + arrX[i], MARIO_START_Y - arrY[i]);
+	}
 
-	arrCloud[0] = new CCloud(MARIO_START_X + 10, MARIO_START_Y - 130);
+	/*
+	arrCloud[0] = new CCloud(MARIO_START_X + 20, MARIO_START_Y - 130);
+	arrCloud[1] = new CCloud(MARIO_START_X + 36, MARIO_START_Y - 130);
+	arrCloud[2] = new CCloud(MARIO_START_X + 52, MARIO_START_Y - 130);
+	arrCloud[3] = new CCloud(MARIO_START_X + 20, MARIO_START_Y - 115);
+	arrCloud[4] = new CCloud(MARIO_START_X + 36, MARIO_START_Y - 115);
+	arrCloud[5] = new CCloud(MARIO_START_X + 52, MARIO_START_Y - 115);
+	arrCloud[6] = new CCloud(MARIO_START_X + 200, MARIO_START_Y - 140);
+	arrCloud[7] = new CCloud(MARIO_START_X + 216, MARIO_START_Y - 140);
+	arrCloud[8] = new CCloud(MARIO_START_X + 232, MARIO_START_Y - 140);
+	arrCloud[9] = new CCloud(MARIO_START_X + 200, MARIO_START_Y - 125);
+	arrCloud[10] = new CCloud(MARIO_START_X + 216, MARIO_START_Y - 125);
+	arrCloud[11] = new CCloud(MARIO_START_X + 232, MARIO_START_Y - 125);
+	*/
 }
-
+	
 /*
 	Update world status for this frame
 	dt: time period between beginning of last frame and beginning of this frame
@@ -219,7 +246,12 @@ void Render()
 			arrMapBrick[i]->Render();
 			arrMapBrick2[i]->Render();
 		}
-		arrCloud[0]->Render();
+
+		for (int i = 0; i < 6; i++)
+		{
+			arrCloud[i]->Render(i);
+			arrCloud[i + 6]->Render(i);
+		}
 
 		// Uncomment this line to see how to draw a porttion of a texture  
 		//g->Draw(10, 10, texMisc, 300, 117, 316, 133);

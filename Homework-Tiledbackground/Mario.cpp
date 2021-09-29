@@ -104,20 +104,20 @@ void CCloud::Render() {
 	ani->Render(x, y);
 
 }
-/*
-void CCloud::Render(int x) {
+
+void CCloud::Render(int k) {
 
 	LPANIMATION ani;
-	switch(x) {
-		case 0: ani = CAnimations::GetInstance()->Get(550);
-		case 1: ani = CAnimations::GetInstance()->Get(551);
-		case 2: ani = CAnimations::GetInstance()->Get(552);
-		case 3: ani = CAnimations::GetInstance()->Get(553);
-		case 4: ani = CAnimations::GetInstance()->Get(554);
-		case 5: ani = CAnimations::GetInstance()->Get(555);
+	switch(k) {
+		default:
+		case 0: ani = CAnimations::GetInstance()->Get(550); break;
+		case 1: ani = CAnimations::GetInstance()->Get(551); break;
+		case 2: ani = CAnimations::GetInstance()->Get(552); break;
+		case 3: ani = CAnimations::GetInstance()->Get(553); break;
+		case 4: ani = CAnimations::GetInstance()->Get(554); break;
+		case 5: ani = CAnimations::GetInstance()->Get(555); break;
 	}
 
 	ani->Render(x, y);
 
 }
-*/
