@@ -45,6 +45,14 @@ void CBrick::Render() {
 
 }
 
+void CMap::Render() {
+
+	LPANIMATION ani = CAnimations::GetInstance()->Get(530);
+
+	ani->Render(x, y);
+
+}
+
 CGoomba::CGoomba(float x, float y, float vx):CGameObject(x, y)
 {
 	this->vx = vx;

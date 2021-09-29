@@ -27,24 +27,30 @@
 #define BACKGROUND_COLOR D3DXCOLOR(200.0f/255, 200.0f/255, 255.0f/255,0.0f)
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
+#define MAPBRICK_WIDTH 16
 
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
+#define ID_TEX_MAP 30
 
 #define TEXTURES_DIR L"textures"
 #define TEXTURE_PATH_MARIO TEXTURES_DIR "\\mario.png"
 #define TEXTURE_PATH_MISC TEXTURES_DIR "\\misc.png"
 #define TEXTURE_PATH_ENEMIES TEXTURES_DIR "\\enemies.png"
+#define TEXTURE_PATH_MAP TEXTURES_DIR "\\map.png"
 
 CMario *mario;
 #define MARIO_START_X 10.0f
-#define MARIO_START_Y 130.0f
+#define MARIO_START_Y 150.0f
 #define MARIO_START_VX 0.1f
 
 CBrick *brick;
 
-CGoomba* goomba;
+CGoomba *goomba;
+
+int numMapBrick = 1 + SCREEN_WIDTH / MAPBRICK_WIDTH;
+CMap** arrMapBrick = new CMap * [numMapBrick];
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -71,6 +77,7 @@ void LoadResources()
 	textures->Add(ID_TEX_ENEMY, TEXTURE_PATH_ENEMIES);
 	//, D3DCOLOR_XRGB(156, 219, 239)
 	textures->Add(ID_TEX_MISC, TEXTURE_PATH_MISC);
+	textures->Add(ID_TEX_MAP, TEXTURE_PATH_MAP);
 
 
 	CSprites * sprites = CSprites::GetInstance();
@@ -98,7 +105,10 @@ void LoadResources()
 	sprites->Add(30002, 81, 16, 102, 36, texGoomba);
 	sprites->Add(30003, 81, 16, 102, 36, texGoomba);
 	sprites->Add(30004, 59, 11, 78, 37, texGoomba);
-	
+
+	LPTEXTURE texMap = textures->Get(ID_TEX_MAP);
+	sprites->Add(40001, 308, 128, 324, 144, texMap);
+
 
 	CAnimations * animations = CAnimations::GetInstance();
 	LPANIMATION ani;
@@ -133,6 +143,10 @@ void LoadResources()
 	ani->Add(30003, 1000);
 	ani->Add(30004);
 	animations->Add(521, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(40001);
+	animations->Add(530, ani);
 	
 	
 	mario = new CMario(MARIO_START_X, MARIO_START_Y, MARIO_START_VX);
@@ -140,6 +154,11 @@ void LoadResources()
 	goomba = new CGoomba(MARIO_START_X + 20, MARIO_START_Y - 60, MARIO_START_VX);
 
 	brick = new CBrick(100.0f, 100.0f);
+
+	for (int i = 0; i < numMapBrick; i++)
+	{
+		arrMapBrick[i] = new CMap(MAPBRICK_WIDTH * i, MARIO_START_Y + 20);
+	}
 }
 
 /*
@@ -150,6 +169,10 @@ void Update(DWORD dt)
 {
 	mario->Update(dt);
 	goomba->Update(dt);
+	for (int i = 0; i < numMapBrick; i++)
+	{
+		arrMapBrick[i]->Update(dt);
+	}
 }
 
 void Render()
@@ -175,6 +198,10 @@ void Render()
 		brick->Render();
 		mario->Render();
 		goomba->Render();
+		for (int i = 0; i < numMapBrick; i++)
+		{
+			arrMapBrick[i]->Render();
+		}
 
 		// Uncomment this line to see how to draw a porttion of a texture  
 		//g->Draw(10, 10, texMisc, 300, 117, 316, 133);

@@ -14,6 +14,14 @@ public:
 	void Update(DWORD dt) {}
 };
 
+class CMap : public CGameObject {
+public:
+	CMap(float x, float y) : CGameObject(x, y) {}
+	void Render();
+	void Update(DWORD dt) {}
+};
+
+
 class CMario : public CGameObject
 {
 protected:
