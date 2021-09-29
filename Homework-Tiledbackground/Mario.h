@@ -21,6 +21,21 @@ public:
 	void Update(DWORD dt) {}
 };
 
+class CMap2 : public CGameObject {
+public:
+	CMap2(float x, float y) : CGameObject(x, y) {}
+	void Render();
+	void Update(DWORD dt) {}
+};
+
+class CCloud : public CGameObject {
+public:
+	CCloud(float x, float y) : CGameObject(x, y) {}
+	void Render();
+	void Render(int x);
+	void Update(DWORD dt) {}
+};
+
 
 class CMario : public CGameObject
 {

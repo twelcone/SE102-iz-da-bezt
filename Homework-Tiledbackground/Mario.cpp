@@ -45,13 +45,21 @@ void CBrick::Render() {
 
 }
 
+
 void CMap::Render() {
 
 	LPANIMATION ani = CAnimations::GetInstance()->Get(530);
-
 	ani->Render(x, y);
-
 }
+
+
+
+void CMap2::Render() {
+
+	LPANIMATION ani = CAnimations::GetInstance()->Get(531);
+	ani->Render(x, y);
+}
+
 
 CGoomba::CGoomba(float x, float y, float vx):CGameObject(x, y)
 {
@@ -87,3 +95,29 @@ void CGoomba::Render()
 
 	ani->Render(x, y);
 }
+
+
+void CCloud::Render() {
+
+	LPANIMATION ani = CAnimations::GetInstance()->Get(550);
+
+	ani->Render(x, y);
+
+}
+/*
+void CCloud::Render(int x) {
+
+	LPANIMATION ani;
+	switch(x) {
+		case 0: ani = CAnimations::GetInstance()->Get(550);
+		case 1: ani = CAnimations::GetInstance()->Get(551);
+		case 2: ani = CAnimations::GetInstance()->Get(552);
+		case 3: ani = CAnimations::GetInstance()->Get(553);
+		case 4: ani = CAnimations::GetInstance()->Get(554);
+		case 5: ani = CAnimations::GetInstance()->Get(555);
+	}
+
+	ani->Render(x, y);
+
+}
+*/

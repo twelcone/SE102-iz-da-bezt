@@ -18,6 +18,7 @@
 
 
 #include "Mario.h"
+//#include "Cloud.h"
 
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
@@ -33,6 +34,7 @@
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
 #define ID_TEX_MAP 30
+#define ID_TEX_CLOUD 40
 
 #define TEXTURES_DIR L"textures"
 #define TEXTURE_PATH_MARIO TEXTURES_DIR "\\mario.png"
@@ -42,7 +44,7 @@
 
 CMario *mario;
 #define MARIO_START_X 10.0f
-#define MARIO_START_Y 150.0f
+#define MARIO_START_Y 160.0f
 #define MARIO_START_VX 0.1f
 
 CBrick *brick;
@@ -51,6 +53,9 @@ CGoomba *goomba;
 
 int numMapBrick = 1 + SCREEN_WIDTH / MAPBRICK_WIDTH;
 CMap** arrMapBrick = new CMap * [numMapBrick];
+CMap2** arrMapBrick2 = new CMap2 * [numMapBrick];
+
+CCloud** arrCloud = new CCloud * [6];
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -107,7 +112,11 @@ void LoadResources()
 	sprites->Add(30004, 59, 11, 78, 37, texGoomba);
 
 	LPTEXTURE texMap = textures->Get(ID_TEX_MAP);
-	sprites->Add(40001, 308, 128, 324, 144, texMap);
+	sprites->Add(40001, 308, 128, 323, 143, texMap);
+	sprites->Add(40002, 308, 110, 323, 125, texMap);
+
+	LPTEXTURE texCloud = textures->Get(ID_TEX_MAP);
+	sprites->Add(50000, 668, 255, 683, 269, texCloud);
 
 
 	CAnimations * animations = CAnimations::GetInstance();
@@ -147,18 +156,29 @@ void LoadResources()
 	ani = new CAnimation(100);
 	ani->Add(40001);
 	animations->Add(530, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(40002);
+	animations->Add(531, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(50000);
+	animations->Add(550, ani);
 	
 	
 	mario = new CMario(MARIO_START_X, MARIO_START_Y, MARIO_START_VX);
 
-	goomba = new CGoomba(MARIO_START_X + 20, MARIO_START_Y - 60, MARIO_START_VX);
+	goomba = new CGoomba(MARIO_START_X + 20, MARIO_START_Y - 90, MARIO_START_VX * 0.8);
 
 	brick = new CBrick(100.0f, 100.0f);
 
 	for (int i = 0; i < numMapBrick; i++)
 	{
-		arrMapBrick[i] = new CMap(MAPBRICK_WIDTH * i, MARIO_START_Y + 20);
+		arrMapBrick[i] = new CMap(MAPBRICK_WIDTH * i , MARIO_START_Y + 36);
+		arrMapBrick2[i] = new CMap2(MAPBRICK_WIDTH * i , MARIO_START_Y + 20);
 	}
+
+	arrCloud[0] = new CCloud(MARIO_START_X + 10, MARIO_START_Y - 130);
 }
 
 /*
@@ -169,10 +189,6 @@ void Update(DWORD dt)
 {
 	mario->Update(dt);
 	goomba->Update(dt);
-	for (int i = 0; i < numMapBrick; i++)
-	{
-		arrMapBrick[i]->Update(dt);
-	}
 }
 
 void Render()
@@ -201,7 +217,9 @@ void Render()
 		for (int i = 0; i < numMapBrick; i++)
 		{
 			arrMapBrick[i]->Render();
+			arrMapBrick2[i]->Render();
 		}
+		arrCloud[0]->Render();
 
 		// Uncomment this line to see how to draw a porttion of a texture  
 		//g->Draw(10, 10, texMisc, 300, 117, 316, 133);
