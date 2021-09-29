@@ -46,6 +46,8 @@ CMario *mario;
 #define MARIO_START_X 10.0f
 #define MARIO_START_Y 160.0f
 #define MARIO_START_VX 0.1f
+#define GRASS_X 200.0f
+#define GRASS_Y 164.0f
 
 CBrick *brick;
 
@@ -56,6 +58,8 @@ CMap** arrMapBrick = new CMap * [numMapBrick];
 CMap2** arrMapBrick2 = new CMap2 * [numMapBrick];
 
 CCloud** arrCloud = new CCloud * [12];
+
+CGrass** arrGrass = new CGrass * [11];
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -123,6 +127,19 @@ void LoadResources()
 	sprites->Add(50004, 686, 272, 701, 287, texCloud);
 	sprites->Add(50005, 704, 272, 719, 287, texCloud);
 
+	LPTEXTURE texGrass = textures->Get(ID_TEX_MAP);
+	sprites->Add(60000, 146, 20, 161, 35, texGrass);
+	sprites->Add(60001, 164, 20, 179, 35, texGrass);
+	sprites->Add(60002, 146, 38, 161, 53, texGrass);
+	sprites->Add(60003, 164, 38, 179, 53, texGrass);
+	sprites->Add(60004, 146, 38, 161, 53, texGrass);
+	sprites->Add(60005, 164, 56, 179, 71, texGrass);
+	sprites->Add(60006, 146, 38, 161, 53, texGrass);
+	sprites->Add(60007, 164, 74, 179, 89, texGrass);
+	sprites->Add(60008, 200, 56, 215, 71, texGrass);
+	sprites->Add(60009, 200, 74, 215, 89, texGrass);
+	sprites->Add(60010, 164, 20, 179, 35, texGrass);
+
 
 	CAnimations * animations = CAnimations::GetInstance();
 	LPANIMATION ani;
@@ -149,12 +166,12 @@ void LoadResources()
 
 
 	ani = new CAnimation(100);
-	ani->Add(30001, 1000);
+	ani->Add(30001);
 	ani->Add(30002);
 	animations->Add(520, ani);
 
 	ani = new CAnimation(100);
-	ani->Add(30003, 1000);
+	ani->Add(30003);
 	ani->Add(30004);
 	animations->Add(521, ani);
 
@@ -166,6 +183,18 @@ void LoadResources()
 	ani->Add(40002);
 	animations->Add(531, ani);
 
+	ani = new CAnimation(100);
+	ani->Add(60000);
+	animations->Add(560, ani);
+
+	for (int i = 0; i < 11; i++)
+	{
+		ani = new CAnimation(100);
+		ani->Add(60000 + i);
+		animations->Add(560 + i, ani);
+	}
+
+	
 	for (int i = 0; i < 6; i++) {
 		ani = new CAnimation(100);
 		ani->Add(50000 + i);
@@ -186,12 +215,32 @@ void LoadResources()
 	}
 	
 	int arrX[12] = { 20, 36, 52, 20, 36, 52, 200, 216, 232, 200, 216, 232 };
-	int arrY[12] = { 130, 130, 130, 115, 115, 115, 140, 140, 140, 125, 125, 125 };
+	int arrY[12] = { 120, 120, 120, 105, 105, 105, 140, 140, 140, 125, 125, 125 };
 	for (int i = 0; i < 12; i++)
 	{
 		arrCloud[i] = new CCloud(MARIO_START_X + arrX[i], MARIO_START_Y - arrY[i]);
 	}
 
+	int arrX_2[11] = { 0, 16, 0, 16, 0, 16, 0, 16, 32, 32, 32 };
+	int arrY_2[11] = { 48, 48, 32, 32, 16, 16, 0, 0, 16, 0, 32 };
+
+	for (int i = 0; i < 11; i++)
+	{
+		arrGrass[i] = new CGrass(GRASS_X + arrX_2[i], GRASS_Y - arrY_2[i]);
+	}
+	/*
+	arrGrass[0] = new CGrass(GRASS_X, GRASS_Y - 48);
+	arrGrass[1] = new CGrass(GRASS_X + 16, GRASS_Y - 48);
+	arrGrass[2] = new CGrass(GRASS_X, GRASS_Y - 32);
+	arrGrass[3] = new CGrass(GRASS_X + 16, GRASS_Y - 32);
+	arrGrass[4] = new CGrass(GRASS_X, GRASS_Y - 16);
+	arrGrass[5] = new CGrass(GRASS_X + 16, GRASS_Y - 16);
+	arrGrass[6] = new CGrass(GRASS_X, GRASS_Y);
+	arrGrass[7] = new CGrass(GRASS_X + 16, GRASS_Y);
+	arrGrass[8] = new CGrass(GRASS_X + 32, GRASS_Y - 16);
+	arrGrass[9] = new CGrass(GRASS_X + 32, GRASS_Y);
+	arrGrass[10] = new CGrass(GRASS_X + 32, GRASS_Y - 32);
+	*/
 	/*
 	arrCloud[0] = new CCloud(MARIO_START_X + 20, MARIO_START_Y - 130);
 	arrCloud[1] = new CCloud(MARIO_START_X + 36, MARIO_START_Y - 130);
@@ -239,6 +288,13 @@ void Render()
 		pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
 		brick->Render();
+
+		for (int i = 0; i < 11; i++)
+		{
+			arrGrass[i]->Render(i);
+		}
+		
+
 		mario->Render();
 		goomba->Render();
 		for (int i = 0; i < numMapBrick; i++)
@@ -252,6 +308,8 @@ void Render()
 			arrCloud[i]->Render(i);
 			arrCloud[i + 6]->Render(i);
 		}
+
+		
 
 		// Uncomment this line to see how to draw a porttion of a texture  
 		//g->Draw(10, 10, texMisc, 300, 117, 316, 133);

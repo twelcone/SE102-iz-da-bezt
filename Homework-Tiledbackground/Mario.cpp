@@ -121,3 +121,33 @@ void CCloud::Render(int k) {
 	ani->Render(x, y);
 
 }
+
+void CGrass::Render() {
+
+	LPANIMATION ani = CAnimations::GetInstance()->Get(560);
+
+	ani->Render(x, y);
+
+}
+
+void CGrass::Render(int k) {
+
+	LPANIMATION ani;
+	switch (k) {
+	default:
+	case 0: ani = CAnimations::GetInstance()->Get(560); break;
+	case 1: ani = CAnimations::GetInstance()->Get(561); break;
+	case 2: ani = CAnimations::GetInstance()->Get(562); break;
+	case 3: ani = CAnimations::GetInstance()->Get(563); break;
+	case 4: ani = CAnimations::GetInstance()->Get(564); break;
+	case 5: ani = CAnimations::GetInstance()->Get(565); break;
+	case 6: ani = CAnimations::GetInstance()->Get(566); break;
+	case 7: ani = CAnimations::GetInstance()->Get(567); break;
+	case 8: ani = CAnimations::GetInstance()->Get(568); break;
+	case 9: ani = CAnimations::GetInstance()->Get(569); break;
+	case 10: ani = CAnimations::GetInstance()->Get(570); break;
+	}
+
+	ani->Render(x, y);
+
+}

@@ -36,6 +36,15 @@ public:
 	void Update(DWORD dt) {}
 };
 
+class CGrass : public CGameObject {
+public:
+	CGrass(float x, float y) : CGameObject(x, y) {}
+	void Render();
+	void Render(int x);
+	void Update(DWORD dt) {}
+};
+
+
 
 class CMario : public CGameObject
 {
